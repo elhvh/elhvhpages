@@ -1,0 +1,110 @@
+<div id="background"></div>
+
+<div style="position: relative; width: 100%; height: 100%;">
+  <iframe
+    src="https://elhvh.ru"
+    style="width: 100%; height: 100%; border: none; pointer-events: none;"
+  ></iframe>
+  
+  <style>
+    #background{
+        position: fixed;
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background: #00000070; 
+        backdrop-filter: blur(2px);
+        z-index: 9998;
+    }
+    #rotatingText{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        background: rgba(255, 0, 0, 0.274);
+        backdrop-filter: blur(2px);
+        padding: 10px 20px;
+        border-radius: 15px;
+        font-size: 24px;
+        text-align: center;
+        pointer-events: none;
+        z-index: 9999;
+        max-width: 500px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        transition: all 0.5s ease;
+        opacity: 0;
+        animation: textAppear 0.5s forwards;
+    }
+  </style>
+
+  <div id="rotatingText"></div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+    * {
+        font-family: "Rubik", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+    }
+    
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #222;
+    }
+    
+    @keyframes textAppear {
+        from { opacity: 0; transform: translate(-50%, -40%); }
+        to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+    
+    @keyframes textDisappear {
+        from { opacity: 1; transform: translate(-50%, -50%); }
+        to { opacity: 0; transform: translate(-50%, -60%); }
+    }
+</style>
+
+<script>
+    const phrases = [
+        "ELHVH обманывает всегда!",
+        "Опасный персонаж: Александр (ElectroNik)",
+        "Админы неадекватные и банят просто так!",
+        "Сказал что не будешь помогать и вам угрожают!",
+        "Забрали привелегию просто так!",
+        "Рекомендую играть на blazinghub.ru!",
+    ];
+    
+    const textElement = document.getElementById('rotatingText');
+    let currentIndex = 0;
+    
+    function rotatePhrase() {
+        // Анимация исчезновения
+        textElement.style.animation = 'textDisappear 0.5s forwards';
+        
+        setTimeout(() => {
+            // Меняем текст
+            textElement.textContent = phrases[currentIndex];
+            // Анимация появления
+            textElement.style.animation = 'textAppear 0.5s forwards';
+            
+            currentIndex = (currentIndex + 1) % phrases.length;
+            setTimeout(rotatePhrase, 1000); // Интервал между фразами
+        }, 100);
+    }
+    
+    // Старт анимации после загрузки
+    setTimeout(() => {
+        textElement.textContent = phrases[currentIndex];
+        currentIndex++;
+        setTimeout(rotatePhrase, 1000);
+    }, 100);
+    
+    // Авторедирект через 10 секунд
+    setTimeout(() => {
+        window.location.href = "https://blazinghub.ru";
+    }, 7000);
+</script>
